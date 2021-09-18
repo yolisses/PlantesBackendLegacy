@@ -24,7 +24,7 @@ mutation{
 
 ```
 query{
- getAllFriend{
+ getAllFriends{
   id
   firstName
     }

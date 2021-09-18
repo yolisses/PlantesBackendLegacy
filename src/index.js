@@ -9,11 +9,9 @@ const app = express();
 server.applyMiddleware({ app });
 
 app.get('/', (req, res) => {
-    console.log("Apollo GraphQL Express server is ready");
+  console.log('Apollo GraphQL Express server is ready');
 });
 
 app.listen({ port: PORT }, () => {
-    console.log(`Server is running at http://localhost:8080${server.graphqlPath}`);
+  console.log(`Server is running at http://localhost:4000${server.graphqlPath}`);
 });
-
-

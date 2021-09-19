@@ -1,9 +1,8 @@
 import { connect, connection } from 'mongoose';
-import { environment } from '../../config/config';
 
-const env = process.env.NODE_ENV || 'development';
+const dbString = process.env.DB_STRING;
 
-connect(environment[env].dbString, {
+connect(dbString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

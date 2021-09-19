@@ -29,10 +29,10 @@ export const typeDefs = gql`
     type Query{
         getPlant(id:ID):Plant
         getAllPlants:[Plant]
+        getPlantImagesLinks(amount:Int):[String!]
     }
 
     type Mutation{
         createPlant(input:PlantInput):Plant
     }
-
 `;

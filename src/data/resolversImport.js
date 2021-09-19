@@ -1,4 +1,4 @@
-import { resolvers as resolversImports } from './resolvers';
+import { resolvers as resolversImports } from './resolvers.js';
 
 const fields = ['Query', 'Mutation'];
 const resolversExport = { Query: {}, Mutation: {} };

@@ -1,12 +1,12 @@
-import { connect, connection } from 'mongoose';
+import mongoose from 'mongoose';
 
 const dbString = process.env.DB_STRING;
 
-connect(dbString, {
+mongoose.connect(dbString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-connection.on('error', () => {
+mongoose.connection.on('error', () => {
   console.error('Error while connecting to DB');
 });

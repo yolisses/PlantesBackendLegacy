@@ -9,6 +9,7 @@
   },
   "author": "akrsh24",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^15.0.3",
     "babel-cli": "^6.26.0",

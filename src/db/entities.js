@@ -1,8 +1,8 @@
 import './dbConnector.js';
-import { model } from 'mongoose';
+import mongoose from 'mongoose';
 
 import { plantSchema } from '../plant/plantSchema.js';
 
-const Plants = model('Plants', plantSchema);
+const Plants = mongoose.model('Plants', plantSchema);
 
 export { Plants };

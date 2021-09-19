@@ -1,4 +1,4 @@
-import { Plants } from '../db/entities';
+import { Plants } from '../db/entities.js';
 
 export const plantsResolvers = {
   Query:

@@ -1,89 +1,31 @@
-import { Friends, Plants, Series } from '../db/dbConnector.js';
+import { plantsResolvers } from '../plant/plantsResolvers.js';
 
-/**
-* GraphQL Resolvers
-* */
+const resolversImports = [plantsResolvers];
+const resolversExport = { Query: {}, Mutation: {} };
 
-export const resolvers = {
-  Query: {
-    getPlant: (root, { id }) => new Promise((resolve, reject) => {
-      Plants.findOne({ _id: id }, (err, plant) => {
-        if (err) reject(err);
-        else resolve(plant);
-      });
-    }),
-    getAllPlants: (root) => new Promise((resolve, reject) => {
-      Plants.find((err, plants) => {
-        if (err) reject(err);
-        else resolve(plants);
-      });
-    }),
-    getAllFriends: (root) => new Promise((resolve, reject) => {
-      Friends.find((err, friends) => {
-        if (err) reject(err);
-        else resolve(friends);
-      });
-    }),
-    findASeries: (root, { id }) => new Promise((resolve, reject) => {
-      Series.findOne({ _id: id }, (err, series) => {
-        if (err) reject(err);
-        else resolve(series);
-      });
-    }),
-  },
-  Mutation: {
-    createFriend: (root, { input }) => {
-      const newFriend = new Friends({
-        firstName: input.firstName,
-        lastName: input.lastName,
-        gender: input.gender,
-        language: input.language,
-        age: input.age,
-        email: input.email,
-        contacts: input.contacts,
-      });
+const fields = ['Query', 'Mutation'];
 
-      newFriend.id = newFriend._id;
+console.error(resolversImports);
+resolversImports.forEach((resolversImport) => {
+  console.error(resolversImport);
+  console.error(fields);
+  fields.forEach((field) => {
+    console.error(field);
+    const resolvers = resolversImport[field];
+    if (resolvers === undefined) return;
+    console.error(resolversImport);
+    console.error(resolversImport[field]);
+    Object.entries(resolvers).forEach((resolver) => {
+      const name = resolver[0];
+      const func = resolver[1];
+      if (resolversExport[field][name]) {
+        throw new Error(`Resolver name ${name} already registered, make sure you dont forgot rename it`);
+      }
+      resolversExport[field][name] = func;
+    });
+  });
+});
 
-      return new Promise((resolve, reject) => {
-        newFriend.save((err) => {
-          if (err) reject(err);
-          else resolve(newFriend);
-        });
-      });
-    },
-    createPlant: (root, { input }) => {
-      const {
-        name, description, price, swap, donate, imagesCount, tags, amount,
-      } = input;
-      const images = new Array(imagesCount);
-      const newPlant = new Plants({
-        name, description, price, swap, donate, images, tags, amount,
-      });
-      newPlant.id = newPlant._id;
+console.error(resolversExport);
 
-      return new Promise((resolve, reject) => {
-        newPlant.save((err) => {
-          if (err) reject(err);
-          else resolve(newPlant);
-        });
-      });
-    },
-    addASeries: (root, { series }) => {
-      const newSeries = new Series({
-        seriesName: series.seriesName,
-        year: series.year,
-        rating: series.rating,
-      });
-
-      newSeries.id = series._id;
-
-      return new Promise((resolve, reject) => {
-        newSeries.save((err) => {
-          if (err) reject(err);
-          resolve(newSeries);
-        });
-      });
-    },
-  },
-};
+export const resolvers = resolversExport;

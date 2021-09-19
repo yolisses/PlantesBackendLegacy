@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const { environment } = require('../../config/config');
-const { friendSchema } = require('./schema/friendSchema.js');
-const { seriesSchema } = require('./schema/seriesSchema.js');
-const { plantSchema } = require('./schema/plantSchema.js');
+import mongoose from 'mongoose';
+import { environment } from '../../config/config';
+import { friendSchema } from './schema/friendSchema.js';
+import { seriesSchema } from './schema/seriesSchema.js';
+import { plantSchema } from './schema/plantSchema.js';
 
 const env = process.env.NODE_ENV || 'development';
 

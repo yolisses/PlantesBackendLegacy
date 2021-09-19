@@ -9,10 +9,10 @@ export const typeDefs = gql`
         price:Float
         swap:Boolean
         donate:Boolean
+        amount:Int
         images:[String]
         card:String
         tags:[String]
-        part:Part
     }
 
     type Friend{
@@ -44,13 +44,6 @@ export const typeDefs = gql`
         THREE
     }
 
-    enum Part{
-        PLANT
-        SEED
-        CUTTING
-        BULB
-    }
-
     enum Gender{
         MALE
         FEMALE
@@ -70,9 +63,9 @@ export const typeDefs = gql`
         price:Float
         swap:Boolean
         donate:Boolean
+        amount:Int
         tags:[String]
         imagesCount:Int!
-        part:Part
     }
 
     input FriendInput{
@@ -93,6 +86,7 @@ export const typeDefs = gql`
 
     type Query{
         getAllFriends:[Friend]
+        getPlant(id:ID):Plant
         getAllPlants:[Plant]
         findASeries(id:ID):Series
     }
@@ -104,3 +98,11 @@ export const typeDefs = gql`
     }
 
 `;
+
+// Allgum dia...
+// enum Part{
+//     PLANT
+//     SEED
+//     CUTTING
+//     BULB
+// }

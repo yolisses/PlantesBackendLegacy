@@ -24,10 +24,15 @@ exports.plantSchema = new mongoose.Schema({
   card: {
     type: String,
   },
+  amount: {
+    type: Number,
+  },
   tags: {
     type: Array,
   },
-  part: {
-    type: String,
-  },
 });
+
+// Um dia...
+// part: {
+//   type: String,
+// },

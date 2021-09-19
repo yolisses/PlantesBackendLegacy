@@ -22,10 +22,14 @@ export const friendSchema = new mongoose.Schema({
     card: {
         type: String,
     },
+    amount: {
+        type: Number,
+    },
     tags: {
         type: Array,
     },
-    part: {
-        type: String,
-    },
 });
+
+// part: {
+//     type: String,
+// },

@@ -6,6 +6,12 @@ import { Friends, Plants, Series } from '../db/dbConnector.js';
 
 export const resolvers = {
   Query: {
+    getPlant: (root, { id }) => new Promise((resolve, reject) => {
+      Plants.findOne({ _id: id }, (err, plant) => {
+        if (err) reject(err);
+        else resolve(plant);
+      });
+    }),
     getAllPlants: (root) => new Promise((resolve, reject) => {
       Plants.find((err, plants) => {
         if (err) reject(err);
@@ -48,11 +54,11 @@ export const resolvers = {
     },
     createPlant: (root, { input }) => {
       const {
-        name, description, price, swap, donate, imagesCount, tags, part,
+        name, description, price, swap, donate, imagesCount, tags, amount,
       } = input;
       const images = new Array(imagesCount);
       const newPlant = new Plants({
-        name, description, price, swap, donate, images, tags, part,
+        name, description, price, swap, donate, images, tags, amount,
       });
       newPlant.id = newPlant._id;
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { environment } = require('../config/config');
+const { environment } = require('../../config/config');
 const { friendSchema } = require('./schema/friendSchema.js');
 const { seriesSchema } = require('./schema/seriesSchema.js');
 const { plantSchema } = require('./schema/plantSchema.js');

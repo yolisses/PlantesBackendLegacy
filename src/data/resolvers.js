@@ -1,20 +1,12 @@
-import { plantsResolvers } from '../plant/plantsResolvers.js';
-
-const resolversImports = [plantsResolvers];
-const resolversExport = { Query: {}, Mutation: {} };
+import { resolversImports } from './resolversImports';
 
 const fields = ['Query', 'Mutation'];
+const resolversExport = { Query: {}, Mutation: {} };
 
-console.error(resolversImports);
 resolversImports.forEach((resolversImport) => {
-  console.error(resolversImport);
-  console.error(fields);
   fields.forEach((field) => {
-    console.error(field);
     const resolvers = resolversImport[field];
     if (resolvers === undefined) return;
-    console.error(resolversImport);
-    console.error(resolversImport[field]);
     Object.entries(resolvers).forEach((resolver) => {
       const name = resolver[0];
       const func = resolver[1];
@@ -25,7 +17,5 @@ resolversImports.forEach((resolversImport) => {
     });
   });
 });
-
-console.error(resolversExport);
 
 export const resolvers = resolversExport;

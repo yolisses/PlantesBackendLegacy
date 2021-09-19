@@ -1,8 +1,6 @@
-Object.defineProperty(exports, '__esModule', { value: true });
-exports.plantSchema = void 0;
 const mongoose = require('mongoose');
 
-exports.plantSchema = new mongoose.Schema({
+export const plantSchema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -31,8 +29,3 @@ exports.plantSchema = new mongoose.Schema({
     type: Array,
   },
 });
-
-// Um dia...
-// part: {
-//   type: String,
-// },

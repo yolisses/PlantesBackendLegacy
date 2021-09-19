@@ -1,4 +1,4 @@
-import { Plants } from '../db/dbConnector.js';
+import { Plants } from '../db/entities';
 
 export const plantsResolvers = {
   Query:

@@ -16,14 +16,14 @@ export const typeDefs = gql`
     }
 
     input PlantInput{
-        name:String
+        name:String!
         description:String
         price:Float
         swap:Boolean
         donate:Boolean
         amount:Int
         tags:[String]
-        imagesCount:Int!
+        images:[String!]!
     }
 
     type Query{

@@ -6,8 +6,10 @@ const bucketName = process.env.AWS_BUCKET_NAME;
 export async function generateUploadUrl(type) {
   const imageName = generateRandomId(16);
 
+  const oneHour = 3600
+  
   const params = ({
-    Expires: 60,
+    Expires: oneHour,
     Key: `items/original/${imageName}.${type}`,
     Bucket: bucketName,
   });

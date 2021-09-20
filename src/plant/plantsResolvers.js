@@ -19,9 +19,8 @@ export const plantsResolvers = {
   Mutation: {
     createPlant: (root, { input }) => {
       const {
-        name, description, price, swap, donate, imagesCount, tags, amount,
+        name, description, price, swap, donate, images, tags, amount,
       } = input;
-      const images = new Array(imagesCount);
       const newPlant = new Plants({
         name, description, price, swap, donate, images, tags, amount,
       });

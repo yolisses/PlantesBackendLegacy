@@ -30,6 +30,7 @@ export const typeDefs = gql`
         getPlant(id:ID):Plant
         getAllPlants:[Plant]
         getPlantImageUploadLink:String
+        authenticateWithGoogle(token:String!):String
     }
 
     type Mutation{

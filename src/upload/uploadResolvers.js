@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { s3 } from './s3.js';
+import { s3 } from '../vendor/s3.js';
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 
@@ -10,7 +10,7 @@ export const uploadResolvers = {
           const imageName = v4();
 
           const params = ({
-            Expires: 60,
+            Expires: 3600,
             Key: `uploads/${imageName}.jpg`,
             Bucket: bucketName,
           });

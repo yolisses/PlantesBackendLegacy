@@ -11,7 +11,7 @@ export const uploadResolvers = {
 
           const params = ({
             Expires: 60,
-            Key: `items/original/${imageName}.jpg`,
+            Key: `uploads/${imageName}.jpg`,
             Bucket: bucketName,
           });
 

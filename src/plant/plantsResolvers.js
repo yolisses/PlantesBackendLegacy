@@ -1,3 +1,4 @@
+import { compressImageOnS3 } from '../compress/compressImageOnS3.js';
 import { Plants } from '../db/entities.js';
 
 export const plantsResolvers = {
@@ -17,21 +18,27 @@ export const plantsResolvers = {
       }),
     },
   Mutation: {
-    createPlant: (root, { input }) => {
+    createPlant: async (root, { input }) => {
       const {
         name, description, price, swap, donate, images, tags, amount,
       } = input;
+
+      console.error('oi 1')
+      const compressedImages = await Promise.all(images.map(async image=> await compressImageOnS3(image)))
+      console.error('oi 2')
+
       const newPlant = new Plants({
-        name, description, price, swap, donate, images, tags, amount,
+        name, description, price, swap, donate, images:compressedImages, tags, amount, originalImages:images
       });
       newPlant.id = newPlant._id;
+      console.error('oi 3')
 
-      return new Promise((resolve, reject) => {
-        newPlant.save((err) => {
-          if (err) reject(err);
+      console.error(newPlant)
+
+      return await newPlant.save((err) => {
+          if (err) throw(err);
           else resolve(newPlant);
         });
-      });
     },
   },
 };

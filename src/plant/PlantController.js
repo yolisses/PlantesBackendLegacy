@@ -24,8 +24,6 @@ export const PlantController = {
       name, description, price, swap, donate, images, tags, amount,
     } = req.body;
 
-
-
     const firstImageKey = (images[0]).replace('https://plantei-dev.s3.sa-east-1.amazonaws.com/', '')
 
     await createCard(firstImageKey)
@@ -39,7 +37,7 @@ export const PlantController = {
       price,
       amount,
       donate,
-      images,
+      images: compressedImages,
       description,
     });
     newPlant.id = newPlant._id;

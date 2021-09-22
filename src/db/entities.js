@@ -1,10 +1,10 @@
 import './dbConnector.js';
 import mongoose from 'mongoose';
 
-import { userSchema } from '../user/userSchema.js';
 import { PlantSchema } from '../plant/PlantSchema.js';
+import { UserSchema } from '../user/UserSchema.js';
 
 const Plants = mongoose.model('Plants', PlantSchema);
-const Users = mongoose.model('Users', userSchema);
+const Users = mongoose.model('Users', UserSchema);
 
 export { Plants, Users };

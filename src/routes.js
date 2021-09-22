@@ -1,6 +1,6 @@
 import express from 'express';
 import { authMiddleware } from './auth/authMiddleware.js';
-import { AuthController } from './auth/authResolvers.js';
+import { AuthController } from './auth/AuthController.js';
 import { PlantController } from './plant/PlantController.js';
 
 export const routes = express.Router();

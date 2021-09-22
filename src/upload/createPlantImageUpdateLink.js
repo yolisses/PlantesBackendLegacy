@@ -14,8 +14,6 @@ export async function createPlantImageUpdateLink(type) {
     throw new Error('Unsupported image file type');
   }
 
-  const imageName = v4();
-
   const params = ({
     Key: `uploads/${imageName}.${supportedTypes[type]}`,
     Expires: 60 * 60, // one hour

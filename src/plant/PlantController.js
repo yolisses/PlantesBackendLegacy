@@ -1,7 +1,7 @@
 import { ObjectId } from 'bson';
-import { Plants, SendingPlants } from '../db/entities.js';
-import { createPlantImageUpdateLink } from '../upload/createPlantImageUpdateLink.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
+import { Plants, SendingPlants } from '../db/entities.js';
+import { generateImageName } from '../upload/generateImageName.js';
 
 export const PlantController = {
   async getPlant(req, res) {
@@ -30,9 +30,7 @@ export const PlantController = {
       imagesTypes, name, price, swap, donate,
     });
 
-    const images = await Promise.all(
-      imagesTypes.map(async (type) => createPlantImageUpdateLink(type)),
-    );
+    const images = imagesTypes.map(generateImageName);
 
     const sendingPlant = new SendingPlants({
       name, description, tags, price, swap, donate, userId, images,
@@ -40,6 +38,7 @@ export const PlantController = {
     sendingPlant.id = sendingPlant._id;
 
     await sendingPlant.save();
-    return res.send(sendingPlant);
+    return res.send({ sendingPlant });
   },
+
 };

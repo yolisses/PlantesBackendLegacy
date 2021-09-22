@@ -22,8 +22,9 @@ export const PlantController = {
 
   async createPlant(req, res) {
     const {
-      imagesTypes, name, description, tags, price, swap, donate, userId,
+      imagesTypes, name, description, tags, price, swap, donate,
     } = req.body;
+    const { userId } = req;
 
     checkNotNull({
       imagesTypes, name, price, swap, donate,

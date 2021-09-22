@@ -1,10 +1,18 @@
+import { ObjectId } from 'bson';
 import { Plants } from '../db/entities.js';
 import { createCard } from '../upload/createCard.js';
 
 export const PlantController = {
   async getPlant(req, res) {
-    const plant = await Plants.findOne({ _id: id })
-    return plant
+    const { id } = req.params
+    if (!id) return res.status(400).send({ error: "No id provided" })
+    try {
+      const plant = await Plants.findById(ObjectId(id))
+      return res.send(plant)
+    }
+    catch (err) {
+      return res.status(401).send(err)
+    }
   },
 
   async getAllPlants(req, res) {

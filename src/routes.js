@@ -6,3 +6,4 @@ export const routes = express.Router()
 routes.get('/', (req, res) => res.send({ hello: 'world' }))
 
 routes.get('/plants', PlantController.getAllPlants)
+routes.get('/plant/:id', PlantController.getPlant)

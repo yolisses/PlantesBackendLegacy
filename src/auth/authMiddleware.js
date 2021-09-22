@@ -24,7 +24,7 @@ export function authMiddleware(req, res, next) {
       return res.status(401).send({ error: err });
     }
 
-    req.user_id = decoded.id;
+    req.userId = decoded.id;
     return next();
   });
 }

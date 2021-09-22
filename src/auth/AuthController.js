@@ -8,7 +8,7 @@ const client = new OAuth2Client();
 export const AuthController = {
   async authenticateWithGoogle(req, res) {
     const { idToken } = req.body;
-    checkNotNull(res, { idToken });
+    checkNotNull({ idToken });
     try {
       const ticket = await client.verifyIdToken({
         idToken,

@@ -1,11 +1,11 @@
-export function checkNotNull(res, fieldsAndValues) {
-    const missing = []
-    for (let field in fieldsAndValues) {
-        if (fieldsAndValues[field] === undefined)
-            missing.push(field)
-    }
-    if (missing.length > 0)
-        return res.status(400).send({
-            error: `Missing fields: ${missing}`
-        })
+import { VisibleError } from '../errors/VisibleError.js';
+
+export function checkNotNull(fieldsAndValues) {
+  const missing = [];
+  Object.entries(fieldsAndValues).forEach((entry) => {
+    if (entry[1] === undefined) { missing.push(entry[0]); }
+  });
+  if (missing.length > 0) {
+    throw new VisibleError(200, `Missing fields: ${missing}`);
+  }
 }

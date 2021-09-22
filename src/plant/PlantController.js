@@ -1,5 +1,7 @@
 import { ObjectId } from 'bson';
-import { Plants } from '../db/entities.js';
+import { Plants, SendingPlants } from '../db/entities.js';
+import { createPlantImageUpdateLink } from '../upload/createPlantImageUpdateLink.js';
+import { checkNotNull } from '../utils/checkNotNull.js';
 
 export const PlantController = {
   async getPlant(req, res) {
@@ -20,30 +22,23 @@ export const PlantController = {
 
   async createPlant(req, res) {
     const {
-      name, description, price, swap, donate, images, tags, amount,
+      imagesTypes, name, description, tags, price, swap, donate, userId,
     } = req.body;
 
-    const firstImageKey = (images[0]).replace('https://plantei-dev.s3.sa-east-1.amazonaws.com/', '');
-
-    await createCard(firstImageKey);
-
-    const compressedImages = images.map((image) => image.replace('uploads', 'compressed').replace(/.jpeg|.jpg|.png/, '.webp'));
-
-    const newPlant = new Plants({
-      name,
-      swap,
-      tags,
-      price,
-      amount,
-      donate,
-      images: compressedImages,
-      description,
+    checkNotNull({
+      imagesTypes, name, price, swap, donate,
     });
-    newPlant.id = newPlant._id;
 
-    newPlant.card = images[0].replace('uploads', 'cards').replace(/.jpeg|.jpg|.png/, '.webp');
+    const images = await Promise.all(
+      imagesTypes.map(async (type) => createPlantImageUpdateLink(type)),
+    );
 
-    await newPlant.save();
-    return res.send(newPlant);
+    const sendingPlant = new SendingPlants({
+      name, description, tags, price, swap, donate, userId, images,
+    });
+    sendingPlant.id = sendingPlant._id;
+
+    await sendingPlant.save();
+    return res.send(sendingPlant);
   },
 };

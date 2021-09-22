@@ -1,7 +1,6 @@
 import { Users } from "../db/entities.js";
 
 export async function getOrCreateUser({email, name}){
-
     const user = await Users.findOne({email})
     if(user) return user;
 

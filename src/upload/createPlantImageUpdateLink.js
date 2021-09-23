@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { s3 } from '../vendor/s3.js';
 
 const bucketName = process.env.AWS_BUCKET_NAME;

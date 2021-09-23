@@ -38,7 +38,6 @@ export const PlantController = {
     sendingPlant.id = sendingPlant._id;
 
     await sendingPlant.save();
-    return res.send({ sendingPlant });
+    return res.send(sendingPlant);
   },
-
 };

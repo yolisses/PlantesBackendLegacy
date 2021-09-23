@@ -1,16 +1,19 @@
 import { ObjectId } from 'bson';
 import mongoose from 'mongoose';
 
-export const MessageSchema = new mongoose.Schema({
-  text: {
+export const ChatSchema = new mongoose.Schema({
+  name: {
     type: String,
+  },
+  users: {
+    type: Array,
     required: true,
   },
-  userId: {
-    type: ObjectId,
+  private: {
+    type: Boolean,
     required: true,
   },
-  chatId: {
+  creator: {
     type: ObjectId,
     required: true,
   },

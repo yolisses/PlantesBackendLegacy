@@ -3,6 +3,7 @@ import { authMiddleware } from './auth/authMiddleware.js';
 import { AuthController } from './auth/AuthController.js';
 import { PlantController } from './plant/PlantController.js';
 import { getPlantImageUploadLink } from './upload/getPlantImageUploadLink.js';
+import { UserController } from './user/UserController.js';
 
 export const routes = express.Router();
 
@@ -14,3 +15,5 @@ routes.post('/plantImageUploadLink', authMiddleware, getPlantImageUploadLink);
 routes.post('/confirmplantsending', authMiddleware, PlantController.confirmPlantSending);
 
 routes.post('/googlesignin', AuthController.authenticateWithGoogle);
+
+routes.get('/user/:id', UserController.getUser);

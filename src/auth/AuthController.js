@@ -15,9 +15,10 @@ export const AuthController = {
         audience: process.env.GOOGLE_CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      const { name, email } = payload;
+      const { name, email, picture } = payload;
+      console.error(payload);
 
-      const user = await getOrCreateUser({ name, email });
+      const user = await getOrCreateUser({ name, email, image: picture });
 
       const token = generateToken({ id: user.id });
       return res.send({ token });

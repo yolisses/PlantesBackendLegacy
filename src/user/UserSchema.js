@@ -7,5 +7,9 @@ export const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true, // `email` must be unique
+    select: false,
+  },
+  image: {
+    type: String,
   },
 });

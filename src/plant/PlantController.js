@@ -1,17 +1,17 @@
-import { ObjectId } from 'bson';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { Plants, SendingPlants } from '../db/entities.js';
 import { generateImageName } from '../upload/generateImageName.js';
 import { VisibleError } from '../errors/VisibleError.js';
 import { getFileNameWithDiferentExtension } from '../utils/getFilenameWithDiferentExtension.js';
 import { createCard } from '../upload/createCard.js';
+import { toID } from '../utils/toID.js';
 
 export const PlantController = {
   async getPlant(req, res) {
     const { id } = req.params;
     if (!id) return res.status(400).send({ error: 'No id provided' });
     try {
-      const plant = await Plants.findById(ObjectId(id));
+      const plant = await Plants.findById(toID(id));
       return res.send(plant);
     } catch (err) {
       return res.status(401).send(err);
@@ -48,7 +48,7 @@ export const PlantController = {
     const { plantId } = req.body;
     checkNotNull({ plantId });
 
-    const sendingPlant = await SendingPlants.findById(ObjectId(plantId));
+    const sendingPlant = await SendingPlants.findById(toID(plantId));
     if (sendingPlant === null) {
       throw new VisibleError(404, 'Sending plant not found');
     }

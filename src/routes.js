@@ -7,7 +7,7 @@ import { UserController } from './user/UserController.js';
 
 export const routes = express.Router();
 
-routes.get('/plants', authMiddleware, PlantController.getAllPlants);
+routes.get('/plants', PlantController.getAllPlants);
 routes.get('/plant/:id', PlantController.getPlant);
 routes.post('/plant', authMiddleware, PlantController.createPlant);
 

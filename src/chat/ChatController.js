@@ -30,4 +30,20 @@ export const ChatController = {
     const chats = await Chat.find({ users: toID(userId) });
     res.send(chats);
   },
+
+  async getChatMessages(req, res) {
+    const { id } = req.body;
+    const { userId } = req;
+    checkNotNull({ id });
+    const chat = await Chat // return a single item array
+      .findById(toID(id))
+      .find({ users: toID(userId) });
+
+    if (chat.length === 0) {
+      return res.status(404).send({ error: 'Chat not found' });
+    }
+
+    const messages = await Message.find({ chatId: chat.id });
+    return res.send(messages);
+  },
 };

@@ -10,5 +10,5 @@ export function generateImageName(type) {
   if (!supportedTypes[type]) {
     throw new VisibleError(400, `Unsupported image file type: ${type}`);
   }
-  return `${v4()}.${type}`;
+  return `${v4()}.${supportedTypes[type]}`;
 }

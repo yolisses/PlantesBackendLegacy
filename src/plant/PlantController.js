@@ -2,6 +2,9 @@ import { ObjectId } from 'bson';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { Plants, SendingPlants } from '../db/entities.js';
 import { generateImageName } from '../upload/generateImageName.js';
+import { VisibleError } from '../errors/VisibleError.js';
+import { db } from '../db/db.js';
+import { getFileNameWithDiferentExtension } from '../utils/getFilenameWithDiferentExtension.js';
 
 export const PlantController = {
   async getPlant(req, res) {
@@ -39,5 +42,23 @@ export const PlantController = {
 
     await sendingPlant.save();
     return res.send(sendingPlant);
+  },
+
+  async confirmPlantSending(req, res) {
+    const { plantId } = req.body;
+    checkNotNull({ plantId });
+
+    const sendingPlant = await SendingPlants.findById(ObjectId(plantId));
+    if (sendingPlant === null) {
+      throw new VisibleError(404, 'Sending plant not found');
+    }
+    const copy = { ...sendingPlant._doc };
+    delete copy.__v;
+    console.error('S3_COMPRESSED_IMAGES_PATH', process.env.S3_COMPRESSED_IMAGES_PATH);
+    copy.images = copy.images.map((key) => process.env.S3_COMPRESSED_IMAGES_PATH + getFileNameWithDiferentExtension(key, 'webp'));
+    console.error(copy);
+    await Plants.create(copy);
+    console.error(sendingPlant);
+    return res.status(200).send(copy);
   },
 };

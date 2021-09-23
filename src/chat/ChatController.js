@@ -32,7 +32,7 @@ export const ChatController = {
   },
 
   async getChatMessages(req, res) {
-    const { id } = req.body;
+    const { id } = req.params;
     const { userId } = req;
     checkNotNull({ id });
     const chat = await Chat // return a single item array
@@ -43,7 +43,7 @@ export const ChatController = {
       return res.status(404).send({ error: 'Chat not found' });
     }
 
-    const messages = await Message.find({ chatId: chat.id });
+    const messages = await Message.find({ chatId: id });
     return res.send(messages);
   },
 };

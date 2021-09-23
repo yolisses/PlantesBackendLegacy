@@ -17,3 +17,4 @@ routes.post('/confirmplantsending', authMiddleware, PlantController.confirmPlant
 routes.post('/googlesignin', AuthController.authenticateWithGoogle);
 
 routes.get('/user/:id', UserController.getUser);
+routes.get('/userplants/:id', UserController.getUserPlants);

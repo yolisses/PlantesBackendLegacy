@@ -4,6 +4,7 @@ import { AuthController } from './auth/AuthController.js';
 import { PlantController } from './plant/PlantController.js';
 import { getPlantImageUploadLink } from './upload/getPlantImageUploadLink.js';
 import { UserController } from './user/UserController.js';
+import { ChatController } from './chat/ChatController.js';
 
 export const routes = express.Router();
 
@@ -18,3 +19,5 @@ routes.post('/googlesignin', AuthController.authenticateWithGoogle);
 
 routes.get('/user/:id', UserController.getUser);
 routes.get('/userplants/:id', UserController.getUserPlants);
+
+routes.post('/sendprivatemessage', authMiddleware, ChatController.sendPrivateMessage);

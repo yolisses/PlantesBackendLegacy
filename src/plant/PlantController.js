@@ -3,8 +3,8 @@ import { checkNotNull } from '../utils/checkNotNull.js';
 import { Plants, SendingPlants } from '../db/entities.js';
 import { generateImageName } from '../upload/generateImageName.js';
 import { VisibleError } from '../errors/VisibleError.js';
-import { db } from '../db/db.js';
 import { getFileNameWithDiferentExtension } from '../utils/getFilenameWithDiferentExtension.js';
+import { createCard } from '../upload/createCard.js';
 
 export const PlantController = {
   async getPlant(req, res) {
@@ -54,11 +54,10 @@ export const PlantController = {
     }
     const copy = { ...sendingPlant._doc };
     delete copy.__v;
-    console.error('S3_COMPRESSED_IMAGES_PATH', process.env.S3_COMPRESSED_IMAGES_PATH);
+    copy.card = process.env.S3_CARD_IMAGES_PATH + getFileNameWithDiferentExtension(copy.images[0], 'webp');
     copy.images = copy.images.map((key) => process.env.S3_COMPRESSED_IMAGES_PATH + getFileNameWithDiferentExtension(key, 'webp'));
-    console.error(copy);
+    await createCard(`uploads/${sendingPlant.images[0]}`);
     await Plants.create(copy);
-    console.error(sendingPlant);
     return res.status(200).send(copy);
   },
 };

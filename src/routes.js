@@ -21,3 +21,4 @@ routes.get('/user/:id', UserController.getUser);
 routes.get('/userplants/:id', UserController.getUserPlants);
 
 routes.post('/sendprivatemessage', authMiddleware, ChatController.sendPrivateMessage);
+routes.get('/chats', authMiddleware, ChatController.getUserChats);

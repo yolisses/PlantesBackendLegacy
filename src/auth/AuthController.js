@@ -16,7 +16,6 @@ export const AuthController = {
       });
       const payload = ticket.getPayload();
       const { name, email, picture } = payload;
-      console.error(payload);
 
       const user = await getOrCreateUser({ name, email, image: picture });
 

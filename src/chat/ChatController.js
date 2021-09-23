@@ -24,4 +24,10 @@ export const ChatController = {
 
     return res.send(newMessage);
   },
+
+  async getUserChats(req, res) {
+    const { userId } = req;
+    const chats = await Chat.find({ users: toID(userId) });
+    res.send(chats);
+  },
 };

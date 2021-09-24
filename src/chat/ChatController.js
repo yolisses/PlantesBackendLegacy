@@ -76,4 +76,17 @@ export const ChatController = {
     const messages = await Message.find({ chatId: id });
     return res.send(messages);
   },
+
+  async getPrivateChatByUser(req, res) {
+    const { userId } = req;
+    const { otherUserId } = req.body;
+    checkNotNull({ otherUserId });
+
+    const chat = await Chat.findOne({
+      private: true,
+      users: { $all: [toID(userId), toID(otherUserId)] },
+    });
+
+    return res.send(chat);
+  },
 };

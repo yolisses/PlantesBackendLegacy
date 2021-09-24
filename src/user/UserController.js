@@ -7,6 +7,9 @@ export const UserController = {
     const { id } = req.params;
     checkNotNull({ id });
     const user = await Users.findById(toID(id));
+    if (!user) {
+      return res.status(400).send({ error: 'User not found' });
+    }
     return res.send(user);
   },
 

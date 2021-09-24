@@ -78,13 +78,18 @@ export const ChatController = {
   },
 
   async getPrivateChatByUser(req, res) {
-    const { userId } = req;
-    const { otherUserId } = req.body;
-    checkNotNull({ otherUserId });
+    const { userId: currentUserId } = req;
+    const { userId: otherUserId } = req.body;
+
+    if (currentUserId === otherUserId) {
+      return res.status(400).send({ error: 'User id (param) must be diferent from current user id' });
+    }
+
+    checkNotNull({ userId: otherUserId });
 
     const chat = await Chat.findOne({
       private: true,
-      users: { $all: [toID(userId), toID(otherUserId)] },
+      users: { $all: [toID(currentUserId), toID(otherUserId)] },
     });
 
     return res.send(chat);

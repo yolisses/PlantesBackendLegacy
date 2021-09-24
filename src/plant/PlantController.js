@@ -25,7 +25,7 @@ export const PlantController = {
 
   async createPlant(req, res) {
     const {
-      imagesTypes, name, description, tags, price, swap, donate,
+      imagesTypes, name, description, tags, price, swap, donate, amount,
     } = req.body;
     const { userId } = req;
 
@@ -36,7 +36,7 @@ export const PlantController = {
     const images = imagesTypes.map(generateImageName);
 
     const sendingPlant = new SendingPlants({
-      name, description, tags, price, swap, donate, userId, images,
+      name, description, tags, price, swap, donate, userId, images, amount,
     });
     sendingPlant.id = sendingPlant._id;
 

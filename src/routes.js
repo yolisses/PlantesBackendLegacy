@@ -20,6 +20,6 @@ routes.post('/googlesignin', AuthController.authenticateWithGoogle);
 routes.get('/user/:id', UserController.getUser);
 routes.get('/userplants/:id', UserController.getUserPlants);
 
-routes.post('/sendprivatemessage', authMiddleware, ChatController.sendPrivateMessage);
+routes.post('/sendmessage', authMiddleware, ChatController.sendMessage);
 routes.get('/chats', authMiddleware, ChatController.getUserChats);
 routes.get('/chatmessages/:id', authMiddleware, ChatController.getChatMessages);

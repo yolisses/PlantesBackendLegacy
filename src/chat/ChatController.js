@@ -3,26 +3,53 @@ import { checkNotNull } from '../utils/checkNotNull.js';
 import { toID } from '../utils/toID.js';
 
 export const ChatController = {
-  async sendPrivateMessage(req, res) {
-    const { text, toUserId } = req.body;
+  async sendMessage(req, res) {
+    const { text, toUserId, chatId } = req.body;
     const { userId: fromUserId } = req;
 
-    const fromUser = toID(fromUserId);
-    const toUser = toID(toUserId);
-
-    checkNotNull({ text, toUserId });
-
-    let chat = await Chat
-      .find({ users: fromUser })
-      .findOne({ user: toUser });
-
-    if (!chat) {
-      const user = await Users.findById(toUser);
-      if (!user) { res.status(404).send({ error: 'User not found' }); }
-      chat = await Chat.create({ users: [fromUser, toUser], creator: fromUser, private: true });
+    if (!chatId && !toUserId) {
+      return res.status(400).send({ error: 'No chatId or toUserId provided' });
     }
 
-    const newMessage = Message({ text, userId: fromUserId, chatId: chat.id });
+    let chat;
+    const fromUser = toID(fromUserId);
+
+    if (chatId) {
+      console.error({ chatId });
+      chat = await Chat
+        .findOne({
+          _id: toID(chatId),
+          users: fromUser,
+        });
+
+      console.error({ chat });
+
+      if (!chat) {
+        return res.status(404).send({ error: 'Chat not found' });
+      }
+    } else if (toUserId) {
+      const toUser = toID(toUserId);
+      chat = await Chat.findOne({
+        private: true,
+        users: { $all: [fromUser, toUser] },
+      });
+
+      if (!chat) {
+        const user = await Users.findById(toUser);
+
+        if (!user) {
+          return res.status(404).send({ error: 'User not found' });
+        }
+        chat = new Chat({
+          users: [fromUser, toUser],
+          creator: fromUser,
+          private: true,
+        });
+        await chat.save();
+      }
+    }
+
+    const newMessage = Message({ text, userId: fromUserId, chatId: chat._id });
     await newMessage.save();
 
     return res.send(newMessage);

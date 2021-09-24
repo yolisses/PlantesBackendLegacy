@@ -11,34 +11,18 @@ export const ChatController = {
     const toUser = toID(toUserId);
 
     checkNotNull({ text, toUserId });
-    const user = await Users.findById(toUser);
-    if (!user) { res.status(404).send({ error: 'User not found' }); }
 
-    let chat = await Chat.findOne({ users: { $in: [[fromUser, toUser], [toUser, fromUser]] } });
+    let chat = await Chat
+      .find({ users: fromUser })
+      .findOne({ user: toUser });
+
     if (!chat) {
+      const user = await Users.findById(toUser);
+      if (!user) { res.status(404).send({ error: 'User not found' }); }
       chat = await Chat.create({ users: [fromUser, toUser], creator: fromUser, private: true });
     }
 
     const newMessage = Message({ text, userId: fromUserId, chatId: chat.id });
-    await newMessage.save();
-
-    return res.send(newMessage);
-  },
-
-  async sendMessage(req, res) {
-    const { text, chatId } = req.body;
-    const { userId } = req;
-    checkNotNull({ text, chatId });
-
-    const chat = await Chat // return a single item array
-      .findById(toID(chatId))
-      .find({ users: toID(userId) });
-
-    if (chat.length === 0) {
-      return res.status(404).send({ error: 'Chat not found' });
-    }
-
-    const newMessage = Message({ text, userId, chatId });
     await newMessage.save();
 
     return res.send(newMessage);

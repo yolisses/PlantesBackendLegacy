@@ -1,4 +1,5 @@
 import { Chat, Message, Users } from '../db/entities.js';
+import { io } from '../io.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { toID } from '../utils/toID.js';
 
@@ -51,6 +52,8 @@ export const ChatController = {
 
     const newMessage = Message({ text, userId: fromUserId, chatId: chat._id });
     await newMessage.save();
+
+    io.to(toUserId).emit('message', { message: newMessage });
 
     return res.send(newMessage);
   },

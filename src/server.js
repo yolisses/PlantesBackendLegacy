@@ -5,7 +5,7 @@ import express, { json } from 'express';
 
 import { routes } from './routes.js';
 import { errorsMiddleware } from './errors/errorsMiddleware.js';
-import { configureIO } from './socketOnConnect.js';
+import { configureIO } from './io.js';
 
 const app = express();
 

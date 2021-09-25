@@ -20,7 +20,7 @@ export const AuthController = {
       const user = await getOrCreateUser({ name, email, image: picture });
 
       const token = generateToken({ id: user.id });
-      console.error({ token });
+      // console.error({ token });
       return res.send({ token, user });
     } catch (err) {
       return res.status(400).send({ error: `${err}` });

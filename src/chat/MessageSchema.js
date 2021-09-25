@@ -14,4 +14,6 @@ export const MessageSchema = new mongoose.Schema({
     type: ObjectId,
     required: true,
   },
+}, {
+  timestamps: true,
 });

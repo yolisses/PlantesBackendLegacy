@@ -7,6 +7,8 @@ export const ChatController = {
     const { text, toUserId, chatId } = req.body;
     const { userId: fromUserId } = req;
 
+    checkNotNull({ text });
+
     if (!chatId && !toUserId) {
       return res.status(400).send({ error: 'No chatId or toUserId provided' });
     }
@@ -73,7 +75,11 @@ export const ChatController = {
       return res.status(404).send({ error: 'Chat not found' });
     }
 
-    const messages = await Message.find({ chatId: id });
+    const messages = await Message
+      .find({ chatId: id })
+      .sort({ createdAt: -1 })
+      .limit(5);
+
     return res.send(messages);
   },
 

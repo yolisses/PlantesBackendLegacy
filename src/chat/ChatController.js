@@ -24,8 +24,6 @@ export const ChatController = {
           users: fromUser,
         });
 
-      console.error({ chat });
-
       if (!chat) {
         return res.status(404).send({ error: 'Chat not found' });
       }

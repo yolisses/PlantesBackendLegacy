@@ -79,7 +79,7 @@ export const ChatController = {
     const messages = await Message
       .find({ chatId: id })
       .sort({ createdAt: -1 })
-      .limit(5);
+      .limit(10);
 
     return res.send(messages);
   },

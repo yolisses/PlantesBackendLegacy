@@ -16,7 +16,7 @@ export const UserController = {
   async getUserPlants(req, res) {
     const { id } = req.params;
     checkNotNull({ id });
-    const user = await Plants.find({ userId: toID(id) }).exec();
+    const user = await Plants.find({ userId: toID(id) }).sort({ createdAt: -1 }).exec();
     return res.send(user);
   },
 };

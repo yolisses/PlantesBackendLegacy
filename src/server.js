@@ -17,7 +17,7 @@ app.use(routes);
 app.use(errorsMiddleware);
 
 app.get('/', async (req, res) => {
-  await notificateMessage();
+  await notificateMessage('614db39533ab029270c1812a');
   return res.send();
 });
 

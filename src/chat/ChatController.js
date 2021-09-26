@@ -1,12 +1,14 @@
-import { Chat, Message, Users } from '../db/entities.js';
 import { io } from '../io.js';
-import { checkNotNull } from '../utils/checkNotNull.js';
 import { toID } from '../utils/toID.js';
+import { checkNotNull } from '../utils/checkNotNull.js';
+import { Chat, Message, Users } from '../db/entities.js';
+import { notificateMessage } from '../notification/notificateMessage.js';
 
 export const ChatController = {
   async sendMessage(req, res) {
     const { text, toUserId, chatId } = req.body;
     const { userId: fromUserId } = req;
+    // const fromUserId = '614db83ba986fc8433007177';
 
     checkNotNull({ text });
 
@@ -54,6 +56,7 @@ export const ChatController = {
     await newMessage.save();
 
     io.to(toUserId).emit('message', { message: newMessage });
+    await notificateMessage(toUserId);
 
     return res.send(newMessage);
   },

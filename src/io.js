@@ -23,7 +23,6 @@ export function configureIO(httpServer) {
     try {
       const id = await getId(socket.handshake.auth.token);
       socket.join(id);
-      console.error('hello', id);
       next();
     } catch (err) {
       next(new Error('invalid'));

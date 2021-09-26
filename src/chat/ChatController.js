@@ -20,7 +20,6 @@ export const ChatController = {
     const fromUser = toID(fromUserId);
 
     if (chatId) {
-      console.error({ chatId });
       chat = await Chat
         .findOne({
           _id: toID(chatId),

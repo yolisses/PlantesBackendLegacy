@@ -1,4 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
+import { createNotificationAuthToken } from '../notification/createNotificationAuthToken.js';
 import { getOrCreateUser } from '../user/getOrCreateUser.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { generateToken } from './generateToken.js';
@@ -18,10 +19,15 @@ export const AuthController = {
       const { name, email, picture } = payload;
 
       const user = await getOrCreateUser({ name, email, image: picture });
+      const { id } = user;
+      const token = generateToken({ id });
 
-      const token = generateToken({ id: user.id });
-      // console.error({ token });
-      return res.send({ token, user });
+      const idAuthToken = createNotificationAuthToken(id);
+      const emailAuthToken = createNotificationAuthToken(email);
+
+      return res.send({
+        id, token, user, email, idAuthToken, emailAuthToken,
+      });
     } catch (err) {
       return res.status(400).send({ error: `${err}` });
     }

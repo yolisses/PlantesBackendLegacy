@@ -23,6 +23,16 @@ export const PlantController = {
     return res.send(plants);
   },
 
+  async getPlants(req, res) {
+    const { page } = req.params;
+    const resultsPerPage = 20;
+    const plants = await Plants
+      .find()
+      .skip(Number(page) * resultsPerPage)
+      .limit(resultsPerPage);
+    return res.send(plants);
+  },
+
   async createPlant(req, res) {
     const {
       imagesTypes, name, description, tags, price, swap, donate, amount,

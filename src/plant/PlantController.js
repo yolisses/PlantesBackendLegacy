@@ -25,9 +25,18 @@ export const PlantController = {
 
   async getPlants(req, res) {
     const { page } = req.params;
+    const { donate, swap, sell } = req.query;
+    const query = { };
+    if (donate === 'true') query.donate = true;
+    if (donate === 'false') query.donate = false;
+    if (swap === 'true') query.swap = true;
+    if (swap === 'false') query.swap = false;
+    if (sell === 'true') query.price = { $ne: null };
+    if (sell === 'false') query.price = null;
+
     const resultsPerPage = 20;
     const plants = await Plants
-      .find()
+      .find(query)
       .skip(Number(page) * resultsPerPage)
       .limit(resultsPerPage);
     return res.send(plants);

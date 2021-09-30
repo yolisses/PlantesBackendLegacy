@@ -1,7 +1,7 @@
 import * as OneSignal from 'onesignal-node';
 import { client } from '../vendor/oneSignal.js';
 
-export async function notificateMessage(userId) {
+export async function notifyMessage(userId) {
   const notification = {
     contents: {
       en: 'Você recebeu uma mensagem',

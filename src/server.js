@@ -6,7 +6,7 @@ import express, { json } from 'express';
 import { routes } from './routes.js';
 import { errorsMiddleware } from './errors/errorsMiddleware.js';
 import { configureIO } from './io.js';
-import { notificateMessage } from './notification/notificateMessage.js';
+import { notifyMessage } from './notification/notifyMessage.js';
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(routes);
 app.use(errorsMiddleware);
 
 app.get('/', async (req, res) => {
-  await notificateMessage('614db39533ab029270c1812a');
+  await notifyMessage('614db39533ab029270c1812a');
   return res.send();
 });
 

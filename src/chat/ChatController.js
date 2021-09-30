@@ -2,7 +2,7 @@ import { io } from '../io.js';
 import { toID } from '../utils/toID.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { Chat, Message, User } from '../db/entities.js';
-import { notificateMessage } from '../notification/notificateMessage.js';
+import { notifyMessage } from '../notification/notifyMessage.js';
 
 export const ChatController = {
   async sendMessage(req, res) {
@@ -55,7 +55,7 @@ export const ChatController = {
     await newMessage.save();
 
     io.to(toUserId).emit('message', { message: newMessage });
-    await notificateMessage(toUserId);
+    await notifyMessage(toUserId);
 
     return res.send(newMessage);
   },

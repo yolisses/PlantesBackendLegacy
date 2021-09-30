@@ -26,13 +26,15 @@ export const PlantController = {
   async getPlants(req, res) {
     const { page } = req.params;
     const { donate, swap, sell } = req.query;
-    const query = { };
-    if (donate === 'true') query.donate = true;
-    if (donate === 'false') query.donate = false;
-    if (swap === 'true') query.swap = true;
-    if (swap === 'false') query.swap = false;
-    if (sell === 'true') query.price = { $ne: null };
-    if (sell === 'false') query.price = null;
+    let query = { };
+    const orQuery = [];
+
+    if (donate === 'true' || swap === 'true' || sell === 'true') {
+      if (donate === 'true') { orQuery.push({ donate: true }); }
+      if (swap === 'true') { orQuery.push({ swap: true }); }
+      if (sell === 'true') { orQuery.push({ price: { $ne: null } }); }
+      query = { $or: orQuery };
+    }
 
     const resultsPerPage = 20;
     const plants = await Plants

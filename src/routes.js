@@ -12,15 +12,15 @@ routes.get('/plants/:page', PlantController.getPlants);
 routes.get('/plant/:id', PlantController.getPlant);
 routes.post('/plant', authMiddleware, PlantController.createPlant);
 
-routes.post('/plantImageUploadLink', authMiddleware, getPlantImageUploadLink);
-routes.post('/confirmplantsending', authMiddleware, PlantController.confirmPlantSending);
+routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);
+routes.post('/confirm-plant-sending', authMiddleware, PlantController.confirmPlantSending);
 
-routes.post('/googlesignin', AuthController.authenticateWithGoogle);
+routes.post('/google-sign-in', AuthController.authenticateWithGoogle);
 
 routes.get('/user/:id', UserController.getUser);
-routes.get('/userplants/:id', UserController.getUserPlants);
+routes.get('/user-plants/:id', UserController.getUserPlants);
 
-routes.post('/sendmessage', authMiddleware, ChatController.sendMessage);
+routes.post('/send-message', authMiddleware, ChatController.sendMessage);
 routes.get('/chats', authMiddleware, ChatController.getUserChats);
-routes.get('/chatmessages/:id', authMiddleware, ChatController.getChatMessages);
-routes.post('/privatechatbyuser', authMiddleware, ChatController.getPrivateChatByUser);
+routes.get('/chat-messages/:id', authMiddleware, ChatController.getChatMessages);
+routes.post('/private-chat-by-user', authMiddleware, ChatController.getPrivateChatByUser);

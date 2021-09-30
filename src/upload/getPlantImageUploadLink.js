@@ -1,4 +1,4 @@
-import { SendingPlants } from '../db/entities.js';
+import { SendingPlant } from '../db/entities.js';
 import { VisibleError } from '../errors/VisibleError.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
 import { toID } from '../utils/toID.js';
@@ -10,7 +10,7 @@ export async function getPlantImageUploadLink(req, res) {
   const { plantId, image } = req.body;
   checkNotNull({ plantId, image });
 
-  const sendingPlant = await SendingPlants.findById(toID(plantId));
+  const sendingPlant = await SendingPlant.findById(toID(plantId));
   if (!sendingPlant) {
     throw new VisibleError(404, 'Plant not found');
   }

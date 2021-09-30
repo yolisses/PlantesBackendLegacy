@@ -1,5 +1,5 @@
 import { checkNotNull } from '../utils/checkNotNull.js';
-import { Plants, SendingPlants } from '../db/entities.js';
+import { Plant, SendingPlant } from '../db/entities.js';
 import { generateImageName } from '../upload/generateImageName.js';
 import { VisibleError } from '../errors/VisibleError.js';
 import { getFileNameWithDiferentExtension } from '../utils/getFilenameWithDiferentExtension.js';
@@ -11,7 +11,7 @@ export const PlantController = {
     const { id } = req.params;
     if (!id) return res.status(400).send({ error: 'No id provided' });
     try {
-      const plant = await Plants.findById(toID(id));
+      const plant = await Plant.findById(toID(id));
       return res.send(plant);
     } catch (err) {
       return res.status(401).send(err);
@@ -19,7 +19,7 @@ export const PlantController = {
   },
 
   async getAllPlants(req, res) {
-    const plants = await Plants.find();
+    const plants = await Plant.find();
     return res.send(plants);
   },
 
@@ -37,7 +37,7 @@ export const PlantController = {
     }
 
     const resultsPerPage = 20;
-    const plants = await Plants
+    const plants = await Plant
       .find(query)
       .skip(Number(page) * resultsPerPage)
       .limit(resultsPerPage);
@@ -56,7 +56,7 @@ export const PlantController = {
 
     const images = imagesTypes.map(generateImageName);
 
-    const sendingPlant = new SendingPlants({
+    const sendingPlant = new SendingPlant({
       name, description, tags, price, swap, donate, userId, images, amount,
     });
     sendingPlant.id = sendingPlant._id;
@@ -69,7 +69,7 @@ export const PlantController = {
     const { plantId } = req.body;
     checkNotNull({ plantId });
 
-    const sendingPlant = await SendingPlants.findById(toID(plantId));
+    const sendingPlant = await SendingPlant.findById(toID(plantId));
     if (sendingPlant === null) {
       throw new VisibleError(404, 'Sending plant not found');
     }
@@ -78,7 +78,7 @@ export const PlantController = {
     copy.card = process.env.S3_CARD_IMAGES_PATH + getFileNameWithDiferentExtension(copy.images[0], 'webp');
     copy.images = copy.images.map((key) => process.env.S3_COMPRESSED_IMAGES_PATH + getFileNameWithDiferentExtension(key, 'webp'));
     await createCard(`uploads/${sendingPlant.images[0]}`);
-    await Plants.create(copy);
+    await Plant.create(copy);
     return res.status(200).send(copy);
   },
 };

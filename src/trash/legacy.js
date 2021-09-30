@@ -8,7 +8,7 @@ const {
 
   const compressedImages = images.map((image) => image.replace('uploads', 'compressed').replace(/.jpeg|.jpg|.png/, '.webp'));
 
-  const newPlant = new Plants({
+  const newPlant = new Plant({
     name,
     swap,
     tags,

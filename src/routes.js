@@ -19,6 +19,7 @@ routes.post('/google-sign-in', AuthController.authenticateWithGoogle);
 
 routes.get('/user/:id', UserController.getUser);
 routes.get('/user-plants/:id', UserController.getUserPlants);
+routes.put('/update-profile', authMiddleware, UserController.updateProfile);
 
 routes.post('/send-message', authMiddleware, ChatController.sendMessage);
 routes.get('/chats', authMiddleware, ChatController.getUserChats);

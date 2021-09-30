@@ -1,0 +1,16 @@
+
+  async updateProfile(req, res) {
+    const { name, description } = req.body;
+
+    if (!name && !description) {
+      return res.status(400).send({ error: 'Missing update values' });
+    }
+    if (name) {
+      if (name.length < 3) {
+        return res.status(401).send({ error: 'Name with less than 3 characters' });
+      }
+    }
+
+    const user = Users
+    return res.send({ name, description });
+  },

@@ -6,12 +6,12 @@ import { UserSchema } from '../user/UserSchema.js';
 import { MessageSchema } from '../chat/MessageSchema.js';
 import { ChatSchema } from '../chat/ChatSchema.js';
 
-const SendingPlants = mongoose.model('SendingPlants', PlantSchema);
-const Plants = mongoose.model('Plants', PlantSchema);
-const Users = mongoose.model('Users', UserSchema);
+const SendingPlant = mongoose.model('SendingPlants', PlantSchema);
+const Plant = mongoose.model('Plants', PlantSchema);
+const User = mongoose.model('Users', UserSchema);
 const Message = mongoose.model('Messages', MessageSchema);
 const Chat = mongoose.model('Chats', ChatSchema);
 
 export {
-  Plants, Users, SendingPlants, Message, Chat,
+  Plant, User, SendingPlant, Message, Chat,
 };

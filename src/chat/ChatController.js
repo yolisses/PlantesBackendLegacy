@@ -1,7 +1,7 @@
 import { io } from '../io.js';
 import { toID } from '../utils/toID.js';
 import { checkNotNull } from '../utils/checkNotNull.js';
-import { Chat, Message, Users } from '../db/entities.js';
+import { Chat, Message, User } from '../db/entities.js';
 import { notificateMessage } from '../notification/notificateMessage.js';
 
 export const ChatController = {
@@ -37,7 +37,7 @@ export const ChatController = {
       });
 
       if (!chat) {
-        const user = await Users.findById(toUser);
+        const user = await User.findById(toUser);
 
         if (!user) {
           return res.status(404).send({ error: 'User not found' });

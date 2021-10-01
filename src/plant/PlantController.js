@@ -39,26 +39,39 @@ export const PlantController = {
   async getPlants(req, res) {
     const { page } = req.params;
     console.error(req.body);
-    const { availabilities, tags } = req.body;
+    const {
+      donate, sell, swap, text, tags,
+    } = req.body;
 
     let query = { };
     const orQuery = [];
 
-    if (availabilities) {
-      const { donate, swap, sell } = availabilities;
-      if (donate || swap || sell) {
-        if (donate) { orQuery.push({ donate: true }); }
-        if (swap) { orQuery.push({ swap: true }); }
-        if (sell) { orQuery.push({ price: { $ne: null } }); }
-        query = { $or: orQuery };
-      }
+    if (donate || swap || sell) {
+      if (donate) { orQuery.push({ donate: true }); }
+      if (swap) { orQuery.push({ swap: true }); }
+      if (sell) { orQuery.push({ price: { $ne: null } }); }
+      query = { $or: orQuery };
     }
+
+    if ((tags && tags.length) || text) {
+      let textQuery = '';
+      if (text) {
+        textQuery += text;
+      }
+      if (tags) {
+        tags.forEach((tag) => { textQuery += ` ${tag}`; });
+      }
+      query.$text = { $search: textQuery };
+    }
+
+    console.error(query);
 
     const resultsPerPage = 20;
     const plants = await Plant
       .find(query)
       .skip(Number(page) * resultsPerPage)
       .limit(resultsPerPage);
+    console.error(plants);
     return res.send(plants);
   },
 

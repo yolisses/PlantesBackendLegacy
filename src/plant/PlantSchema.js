@@ -31,7 +31,7 @@ export const PlantSchema = new mongoose.Schema({
     type: Number,
   },
   tags: {
-    type: Array,
+    type: [String],
   },
 }, {
   timestamps: true,

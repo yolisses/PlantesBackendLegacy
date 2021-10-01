@@ -18,6 +18,19 @@ export const PlantController = {
     }
   },
 
+  async searchPlant(req, res) {
+    const { text } = req.query;
+
+    const result = await Plant
+      .find(
+        { $text: { $search: text } },
+        { score: { $meta: 'textScore' } },
+      )
+      .sort({ score: { $meta: 'textScore' } })
+      .exec();
+    return res.send(result);
+  },
+
   async getAllPlants(req, res) {
     const plants = await Plant.find();
     return res.send(plants);
@@ -25,15 +38,20 @@ export const PlantController = {
 
   async getPlants(req, res) {
     const { page } = req.params;
-    const { donate, swap, sell } = req.query;
+    console.error(req.body);
+    const { availabilities, tags } = req.body;
+
     let query = { };
     const orQuery = [];
 
-    if (donate === 'true' || swap === 'true' || sell === 'true') {
-      if (donate === 'true') { orQuery.push({ donate: true }); }
-      if (swap === 'true') { orQuery.push({ swap: true }); }
-      if (sell === 'true') { orQuery.push({ price: { $ne: null } }); }
-      query = { $or: orQuery };
+    if (availabilities) {
+      const { donate, swap, sell } = availabilities;
+      if (donate || swap || sell) {
+        if (donate) { orQuery.push({ donate: true }); }
+        if (swap) { orQuery.push({ swap: true }); }
+        if (sell) { orQuery.push({ price: { $ne: null } }); }
+        query = { $or: orQuery };
+      }
     }
 
     const resultsPerPage = 20;

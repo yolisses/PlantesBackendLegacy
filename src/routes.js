@@ -8,9 +8,11 @@ import { ChatController } from './chat/ChatController.js';
 
 export const routes = express.Router();
 
-routes.get('/plants/:page', PlantController.getPlants);
+routes.post('/plants/:page', PlantController.getPlants);
 routes.get('/plant/:id', PlantController.getPlant);
 routes.post('/plant', authMiddleware, PlantController.createPlant);
+
+routes.get('/search/:text?', PlantController.searchPlant);
 
 routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);
 routes.post('/confirm-plant-sending', authMiddleware, PlantController.confirmPlantSending);

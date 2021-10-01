@@ -24,8 +24,6 @@ export const UserController = {
     const { userId } = req;
     const { name, description } = req.body;
 
-    const user = User.findById(userId);
-
     if (!name && !description) {
       return res.status(400).send({ error: 'Missing update values' });
     }

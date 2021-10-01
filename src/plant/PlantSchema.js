@@ -36,3 +36,9 @@ export const PlantSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 });
+
+PlantSchema.index({
+  name: 'text',
+  tags: 'text',
+  description: 'text',
+});

@@ -18,6 +18,9 @@ export const UserSchema = new mongoose.Schema({
   cep: {
     type: String,
   },
+  location: {
+    type: Object,
+  },
 }, {
   timestamps: true,
 });

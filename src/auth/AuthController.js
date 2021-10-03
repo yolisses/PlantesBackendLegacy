@@ -1,7 +1,7 @@
 import { OAuth2Client } from 'google-auth-library';
 import { createNotificationAuthToken } from '../notification/createNotificationAuthToken.js';
 import { getOrCreateUser } from '../user/getOrCreateUser.js';
-import { checkNotNull } from '../utils/checkNotNull.js';
+import { checkNotUndefined } from '../utils/checkNotUndefined.js';
 import { generateToken } from './generateToken.js';
 
 const client = new OAuth2Client();
@@ -9,7 +9,7 @@ const client = new OAuth2Client();
 export const AuthController = {
   async authenticateWithGoogle(req, res) {
     const { idToken } = req.body;
-    checkNotNull({ idToken });
+    checkNotUndefined({ idToken });
     try {
       const ticket = await client.verifyIdToken({
         idToken,

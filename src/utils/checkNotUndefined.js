@@ -1,6 +1,6 @@
 import { VisibleError } from '../errors/VisibleError.js';
 
-export function checkNotNull(fieldsAndValues) {
+export function checkNotUndefined(fieldsAndValues) {
   const missing = [];
   Object.entries(fieldsAndValues).forEach((entry) => {
     if (entry[1] === undefined) { missing.push(entry[0]); }

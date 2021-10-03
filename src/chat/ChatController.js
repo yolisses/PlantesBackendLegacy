@@ -1,6 +1,6 @@
 import { io } from '../io.js';
 import { toID } from '../utils/toID.js';
-import { checkNotNull } from '../utils/checkNotNull.js';
+import { checkNotUndefined } from '../utils/checkNotUndefined.js';
 import { Chat, Message, User } from '../db/entities.js';
 import { notifyMessage } from '../notification/notifyMessage.js';
 
@@ -10,7 +10,7 @@ export const ChatController = {
     const { userId: fromUserId } = req;
     // const fromUserId = '614db83ba986fc8433007177';
 
-    checkNotNull({ text });
+    checkNotUndefined({ text });
 
     if (!chatId && !toUserId) {
       return res.status(400).send({ error: 'No chatId or toUserId provided' });
@@ -69,7 +69,7 @@ export const ChatController = {
   async getChatMessages(req, res) {
     const { id } = req.params;
     const { userId } = req;
-    checkNotNull({ id });
+    checkNotUndefined({ id });
     const chat = await Chat // return a single item array
       .findById(toID(id))
       .find({ users: toID(userId) });
@@ -94,7 +94,7 @@ export const ChatController = {
       return res.status(400).send({ error: 'User id (param) must be diferent from current user id' });
     }
 
-    checkNotNull({ userId: otherUserId });
+    checkNotUndefined({ userId: otherUserId });
 
     const chat = await Chat.findOne({
       private: true,

@@ -1,4 +1,4 @@
-import { checkNotNull } from '../utils/checkNotNull.js';
+import { checkNotUndefined } from '../utils/checkNotUndefined.js';
 import { Plant, SendingPlant } from '../db/entities.js';
 import { generateImageName } from '../upload/generateImageName.js';
 import { VisibleError } from '../errors/VisibleError.js';
@@ -81,9 +81,25 @@ export const PlantController = {
     } = req.body;
     const { userId } = req;
 
-    checkNotNull({
+    checkNotUndefined({
       imagesTypes, name, price, swap, donate,
     });
+
+    if (name.length < 3) {
+      return res.status(401).send({ error: 'Name with less than 3 characters' });
+    }
+
+    if (imagesTypes.length <= 0) {
+      return res.status(401).send({ error: 'Sending without images' });
+    }
+
+    if (imagesTypes.length > 10) {
+      return res.status(401).send({ error: 'Sending with more than 10 images' });
+    }
+
+    if (!donate && !swap && !price) {
+      return res.status(401).send({ error: 'Sending without donate or swap or price' });
+    }
 
     const images = imagesTypes.map(generateImageName);
 
@@ -98,7 +114,7 @@ export const PlantController = {
 
   async confirmPlantSending(req, res) {
     const { plantId } = req.body;
-    checkNotNull({ plantId });
+    checkNotUndefined({ plantId });
 
     const sendingPlant = await SendingPlant.findById(toID(plantId));
     if (sendingPlant === null) {

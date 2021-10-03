@@ -1,6 +1,6 @@
 import { SendingPlant } from '../db/entities.js';
 import { VisibleError } from '../errors/VisibleError.js';
-import { checkNotNull } from '../utils/checkNotNull.js';
+import { checkNotUndefined } from '../utils/checkNotUndefined.js';
 import { toID } from '../utils/toID.js';
 import { s3 } from '../vendor/s3.js';
 
@@ -8,7 +8,7 @@ const bucketName = process.env.AWS_BUCKET_NAME;
 
 export async function getPlantImageUploadLink(req, res) {
   const { plantId, image } = req.body;
-  checkNotNull({ plantId, image });
+  checkNotUndefined({ plantId, image });
 
   const sendingPlant = await SendingPlant.findById(toID(plantId));
   if (!sendingPlant) {

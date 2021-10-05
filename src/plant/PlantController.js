@@ -66,7 +66,7 @@ export const PlantController = {
 
     console.error(query);
 
-    const resultsPerPage = 40;
+    const resultsPerPage = 20;
     const plants = await Plant
       .find(query)
       .skip(Number(page) * resultsPerPage)

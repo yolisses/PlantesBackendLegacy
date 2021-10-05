@@ -5,8 +5,11 @@ import { PlantController } from './plant/PlantController.js';
 import { getPlantImageUploadLink } from './upload/getPlantImageUploadLink.js';
 import { UserController } from './user/UserController.js';
 import { ChatController } from './chat/ChatController.js';
+import { PingController } from './ping/PingController.js';
 
 export const routes = express.Router();
+
+routes.get('/ping', PingController.ping);
 
 routes.post('/plants/:page', PlantController.getPlants);
 routes.get('/plant/:id', PlantController.getPlant);

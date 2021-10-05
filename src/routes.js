@@ -1,24 +1,25 @@
 import express from 'express';
 import { authMiddleware } from './auth/authMiddleware.js';
 import { AuthController } from './auth/AuthController.js';
-import { PlantController } from './plant/PlantController.js';
 import { getPlantImageUploadLink } from './upload/getPlantImageUploadLink.js';
 import { UserController } from './user/UserController.js';
 import { ChatController } from './chat/ChatController.js';
 import { PingController } from './ping/PingController.js';
+import { getPlant } from './plant/getPlant.js';
+import { getPlants } from './plant/getPlants.js';
+import { createPlant } from './plant/createPlant.js';
+import { confirmPlantSending } from './plant/confirmPlantSending.js';
 
 export const routes = express.Router();
 
 routes.get('/ping', PingController.ping);
 
-routes.post('/plants/:page', PlantController.getPlants);
-routes.get('/plant/:id', PlantController.getPlant);
-routes.post('/plant', authMiddleware, PlantController.createPlant);
-
-routes.get('/search/:text?', PlantController.searchPlant);
-
+routes.get('/plant/:id', getPlant);
+routes.post('/plants/:page', getPlants);
+// routes.get('/search/:text?', searchPlant);
+routes.post('/plant', authMiddleware, createPlant);
+routes.post('/confirm-plant-sending', authMiddleware, confirmPlantSending);
 routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);
-routes.post('/confirm-plant-sending', authMiddleware, PlantController.confirmPlantSending);
 
 routes.post('/google-sign-in', AuthController.authenticateWithGoogle);
 

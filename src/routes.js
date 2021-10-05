@@ -1,6 +1,5 @@
 import express from 'express';
 import { authMiddleware } from './auth/authMiddleware.js';
-import { AuthController } from './auth/AuthController.js';
 import { getPlantImageUploadLink } from './upload/getPlantImageUploadLink.js';
 import { UserController } from './user/UserController.js';
 import { ChatController } from './chat/ChatController.js';

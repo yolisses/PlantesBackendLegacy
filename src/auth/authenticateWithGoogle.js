@@ -1,8 +1,9 @@
 import { OAuth2Client } from 'google-auth-library';
-import { createNotificationAuthToken } from '../notification/createNotificationAuthToken';
-import { getOrCreateUser } from '../user/getOrCreateUser';
-import { checkNotUndefined } from '../utils/checkNotUndefined';
-import { generateToken } from './generateToken';
+
+import { generateToken } from './generateToken.js';
+import { getOrCreateUser } from '../user/getOrCreateUser.js';
+import { checkNotUndefined } from '../utils/checkNotUndefined.js';
+import { createNotificationAuthToken } from '../notification/createNotificationAuthToken.js';
 
 const client = new OAuth2Client();
 

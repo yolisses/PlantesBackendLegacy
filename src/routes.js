@@ -9,6 +9,7 @@ import { getPlant } from './plant/getPlant.js';
 import { getPlants } from './plant/getPlants.js';
 import { createPlant } from './plant/createPlant.js';
 import { confirmPlantSending } from './plant/confirmPlantSending.js';
+import { authenticateWithGoogle } from './auth/authenticateWithGoogle.js';
 
 export const routes = express.Router();
 
@@ -21,7 +22,7 @@ routes.post('/plant', authMiddleware, createPlant);
 routes.post('/confirm-plant-sending', authMiddleware, confirmPlantSending);
 routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);
 
-routes.post('/google-sign-in', AuthController.authenticateWithGoogle);
+routes.post('/google-sign-in', authenticateWithGoogle);
 
 routes.get('/user/:id', UserController.getUser);
 routes.get('/user-plants/:id', UserController.getUserPlants);

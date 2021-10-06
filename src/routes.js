@@ -15,6 +15,7 @@ import { getUser } from './user/getUser.js';
 import { getUserPlants } from './user/getUserPlants.js';
 import { updateProfile } from './user/updateProfile.js';
 import { updateUserLocationByIp } from './geolocation/updateUserLocationByIp.js';
+import { updateUserLocationByCoordinates } from './geolocation/updateUserLocationByCoordinates.js';
 
 export const routes = express.Router();
 
@@ -33,3 +34,4 @@ routes.get('/user/:id', getUser);
 routes.get('/user-plants/:id', getUserPlants);
 routes.put('/update-profile', authMiddleware, updateProfile);
 routes.put('/update-location-by-ip', authMiddleware, updateUserLocationByIp);
+routes.put('/update-location-by-coordinates', authMiddleware, updateUserLocationByCoordinates);

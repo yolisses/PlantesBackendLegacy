@@ -8,13 +8,13 @@ export async function updateUserLocationByCoordinates(req, res) {
   const { userId } = req;
 
   const response = await getLocationByCoordinates({ latitude, longitude });
-  const { town: city, state } = response;
+  const { city, town, state } = response;
 
   const user = await User.findByIdAndUpdate(userId, {
     location: {
       coordinates: [longitude, latitude],
     },
-    locationName: { city, state },
+    locationName: { city: city || town, state },
   },
   { new: true }).exec();
   return res.send(user);

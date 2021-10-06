@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { locationNameSchema } from '../geolocation/LocationNameSchema.js';
+import { pointSchema } from '../geolocation/PointSchema.js';
 
 export const UserSchema = new mongoose.Schema({
   name: {
@@ -19,7 +21,11 @@ export const UserSchema = new mongoose.Schema({
     type: String,
   },
   location: {
-    type: Object,
+    type: pointSchema,
+    required: true,
+  },
+  locationName: {
+    type: locationNameSchema,
   },
 }, {
   timestamps: true,

@@ -5,8 +5,16 @@ export async function updateUserLocationByIp(req, res) {
   const { userId } = req;
   const location = await getLocationByIp(req.ip);
   if (location) {
-    delete location.ip;
-    const user = await User.findByIdAndUpdate(userId, { location }, { new: true }).exec();
+    const {
+      latitude, longitude, city, state_prov: state,
+    } = location;
+    const user = await User.findByIdAndUpdate(userId, {
+      location: {
+        coordinates: [longitude, latitude],
+      },
+      locationName: { city, state },
+    },
+    { new: true }).exec();
     res.send(user);
   }
 }

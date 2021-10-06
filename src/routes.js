@@ -14,6 +14,7 @@ import { authenticateWithGoogle } from './auth/authenticateWithGoogle.js';
 import { getUser } from './user/getUser.js';
 import { getUserPlants } from './user/getUserPlants.js';
 import { updateProfile } from './user/updateProfile.js';
+import { updateUserLocationByIp } from './geolocation/updateUserLocationByIp.js';
 
 export const routes = express.Router();
 
@@ -31,3 +32,4 @@ routes.post('/google-sign-in', authenticateWithGoogle);
 routes.get('/user/:id', getUser);
 routes.get('/user-plants/:id', getUserPlants);
 routes.put('/update-profile', authMiddleware, updateProfile);
+routes.put('/update-location-by-ip', authMiddleware, updateUserLocationByIp);

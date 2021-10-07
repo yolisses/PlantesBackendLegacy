@@ -20,9 +20,14 @@ export const UserSchema = new mongoose.Schema({
   cep: {
     type: String,
   },
+  instagramUser: {
+    type: String,
+  },
+  whatsappNumber: {
+    type: Number,
+  },
   location: {
     type: pointSchema,
-    required: true,
   },
   locationName: {
     type: locationNameSchema,

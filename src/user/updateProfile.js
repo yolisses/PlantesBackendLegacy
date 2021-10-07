@@ -3,7 +3,9 @@ import { User } from '../db/entities.js';
 
 export async function updateProfile(req, res) {
   const { userId } = req;
-  const { name, description, cep } = req.body;
+  const {
+    name, description, cep, whatsappNumber, instagramUser,
+  } = req.body;
 
   if (!name && !description && !cep) {
     return res.status(400).send({ error: 'Missing update values' });
@@ -32,6 +34,22 @@ export async function updateProfile(req, res) {
     } else {
       updateObj.location = resCep.data;
     }
+  }
+
+  if (whatsappNumber) {
+    updateObj.whatsappNumber = whatsappNumber;
+  }
+
+  if (whatsappNumber === null || whatsappNumber === '') {
+    updateObj.whatsappNumber = null;
+  }
+
+  if (instagramUser) {
+    updateObj.instagramUser = instagramUser;
+  }
+
+  if (instagramUser === null || instagramUser === '') {
+    updateObj.instagramUser = null;
   }
 
   const newUser = await User.findByIdAndUpdate(userId, updateObj, { new: true }).exec();

@@ -16,10 +16,13 @@ import { getUserPlants } from './user/getUserPlants.js';
 import { updateProfile } from './user/updateProfile.js';
 import { updateUserLocationByIp } from './geolocation/updateUserLocationByIp.js';
 import { updateUserLocationByCoordinates } from './geolocation/updateUserLocationByCoordinates.js';
+import { getNearPlants } from './plant/getNearPlants.js';
 
 export const routes = express.Router();
 
 routes.get('/ping', PingController.ping);
+
+routes.get('/get-near-plants', getNearPlants);
 
 routes.get('/plant/:id', getPlant);
 routes.post('/plants/:page', getPlants);

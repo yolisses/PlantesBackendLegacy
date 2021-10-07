@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { pointSchema } from '../geolocation/PointSchema.js';
 
 export const PlantSchema = new mongoose.Schema({
   name: {
@@ -33,9 +34,14 @@ export const PlantSchema = new mongoose.Schema({
   tags: {
     type: [String],
   },
+  location: {
+    type: pointSchema,
+  },
 }, {
   timestamps: true,
 });
+
+PlantSchema.index({ location: '2dsphere' });
 
 PlantSchema.index({
   name: 'text',

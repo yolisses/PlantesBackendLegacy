@@ -1,6 +1,6 @@
 import { checkNotUndefined } from '../utils/checkNotUndefined.js';
 import { generateImageName } from '../upload/generateImageName.js';
-import { SendingPlant } from '../db/entities.js';
+import { SendingPlant, User } from '../db/entities.js';
 
 export async function createPlant(req, res) {
   const {
@@ -30,8 +30,11 @@ export async function createPlant(req, res) {
 
   const images = imagesTypes.map(generateImageName);
 
+  const user = await User.findById(userId);
+  const { location } = user;
+
   const sendingPlant = new SendingPlant({
-    name, description, tags, price, swap, donate, userId, images, amount,
+    name, description, tags, price, swap, donate, userId, images, amount, location,
   });
   sendingPlant.id = sendingPlant._id;
 

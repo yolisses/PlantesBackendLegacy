@@ -28,9 +28,11 @@ export const UserSchema = new mongoose.Schema({
   },
   location: {
     type: pointSchema,
+    required: true,
   },
   locationName: {
     type: locationNameSchema,
+    required: true,
   },
 }, {
   timestamps: true,

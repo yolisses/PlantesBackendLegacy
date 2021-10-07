@@ -9,6 +9,7 @@ const client = new OAuth2Client();
 
 export async function authenticateWithGoogle(req, res) {
   const { idToken } = req.body;
+  const { ip } = req;
   checkNotUndefined({ idToken });
   try {
     const ticket = await client.verifyIdToken({
@@ -18,7 +19,9 @@ export async function authenticateWithGoogle(req, res) {
     const payload = ticket.getPayload();
     const { name, email, picture } = payload;
 
-    const user = await getOrCreateUser({ name, email, image: picture });
+    const user = await getOrCreateUser({
+      ip, name, email, image: picture,
+    });
     const { id } = user;
     const token = generateToken({ id });
 

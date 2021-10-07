@@ -36,6 +36,7 @@ export const PlantSchema = new mongoose.Schema({
   },
   location: {
     type: pointSchema,
+    required: true,
   },
 }, {
   timestamps: true,

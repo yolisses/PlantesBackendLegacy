@@ -17,9 +17,6 @@ export const UserSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  cep: {
-    type: String,
-  },
   instagramUser: {
     type: String,
   },

@@ -3,8 +3,7 @@ import jwt from 'jsonwebtoken';
 // eslint-disable-next-line consistent-return
 export function authMiddleware(req, res, next) {
   const secret = process.env.AUTH_SECRET;
-
-  const authHeader = req.headers.auth;
+  const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).send({ error: 'No token provided' });
   }

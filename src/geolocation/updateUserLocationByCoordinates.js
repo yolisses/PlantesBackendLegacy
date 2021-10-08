@@ -12,9 +12,6 @@ export async function updateUserLocationByCoordinates(req, res) {
     city, town, village, city_district, state,
   } = response;
 
-  console.error({ city, town });
-  console.error(response);
-
   const user = await User.findByIdAndUpdate(userId, {
     location: {
       coordinates: [longitude, latitude],

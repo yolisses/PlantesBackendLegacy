@@ -1,4 +1,7 @@
 import { Plant } from '../db/entities.js';
+import { EARTH_RADIUS } from '../utils/earthRadius.js';
+
+const searchKilometersRadius = 200;
 
 export async function getPlants(req, res) {
   const { page } = req.params;
@@ -29,13 +32,7 @@ export async function getPlants(req, res) {
 
   if (coordinates) {
     query.location = {
-      $near: {
-        $geometry: {
-          type: 'Point',
-          coordinates,
-        },
-        $maxDistance: 400000,
-      },
+      $geoWithin: { $centerSphere: [coordinates, searchKilometersRadius / EARTH_RADIUS] },
     };
   }
 

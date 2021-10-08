@@ -3,7 +3,7 @@ import { Plant } from '../db/entities.js';
 export async function getPlants(req, res) {
   const { page } = req.params;
   const {
-    donate, sell, swap, text, tags,
+    donate, sell, swap, text, tags, coordinates,
   } = req.body;
 
   let query = { };
@@ -25,6 +25,18 @@ export async function getPlants(req, res) {
       tags.forEach((tag) => { textQuery += ` ${tag}`; });
     }
     query.$text = { $search: textQuery };
+  }
+
+  if (coordinates) {
+    query.location = {
+      $near: {
+        $geometry: {
+          type: 'Point',
+          coordinates,
+        },
+        $maxDistance: 400000,
+      },
+    };
   }
 
   const resultsPerPage = 30;

@@ -18,12 +18,15 @@ export const PlantSchema = new mongoose.Schema({
   },
   swap: {
     type: Boolean,
+    required: true,
   },
   donate: {
     type: Boolean,
+    required: true,
   },
   images: {
     type: Array,
+    required: true,
   },
   card: {
     type: String,

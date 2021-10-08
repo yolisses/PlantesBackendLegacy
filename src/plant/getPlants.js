@@ -1,7 +1,7 @@
 import { Plant } from '../db/entities.js';
 import { EARTH_RADIUS } from '../utils/earthRadius.js';
 
-const searchKilometersRadius = 200;
+const searchKilometersRadius = 1000;
 
 export async function getPlants(req, res) {
   const { page } = req.params;

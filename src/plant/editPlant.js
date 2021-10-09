@@ -20,7 +20,7 @@ export async function editPlant(req, res) {
     updateObj.description = description;
   }
 
-  if (price || price === null) {
+  if (price !== undefined) {
     updateObj.price = price;
   }
 

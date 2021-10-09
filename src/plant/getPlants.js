@@ -36,10 +36,9 @@ export async function getPlants(req, res) {
     };
   }
 
-  const resultsPerPage = 30;
-  const plants = await Plant
-    .find(query)
-    .skip(Number(page) * resultsPerPage)
-    .limit(resultsPerPage);
+  const plants = await Plant.paginate(
+    query,
+    { page, limit: 30 },
+  );
   return res.send(plants);
 }

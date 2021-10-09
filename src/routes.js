@@ -16,7 +16,6 @@ import { editPlant } from './plant/editPlant.js';
 import { removePlant } from './plant/removePlant.js';
 import { getUserPlants } from './user/getUserPlants.js';
 import { updateProfile } from './user/updateProfile.js';
-import { getNearPlants } from './plant/getNearPlants.js';
 import { updateUserLocationByIp } from './geolocation/updateUserLocationByIp.js';
 import { updateUserLocationByCoordinates } from './geolocation/updateUserLocationByCoordinates.js';
 import { devToken } from './dev/generateToken.js';
@@ -24,8 +23,6 @@ import { devToken } from './dev/generateToken.js';
 export const routes = express.Router();
 
 routes.get('/ping', PingController.ping);
-
-routes.get('/get-near-plants', getNearPlants);
 
 routes.get('/plant/:id', getPlant);
 routes.post('/plants/:page', getPlants);

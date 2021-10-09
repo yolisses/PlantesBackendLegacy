@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 import { pointSchema } from '../geolocation/PointSchema.js';
 
 export const PlantSchema = new mongoose.Schema({
@@ -52,3 +53,5 @@ PlantSchema.index({
   tags: 'text',
   description: 'text',
 });
+
+PlantSchema.plugin(mongoosePaginate);

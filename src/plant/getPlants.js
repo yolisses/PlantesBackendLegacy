@@ -30,11 +30,13 @@ export async function getPlants(req, res) {
     query.$text = { $search: textQuery };
   }
 
-  if (coordinates) {
-    query.location = {
-      $geoWithin: { $centerSphere: [coordinates, searchKilometersRadius / EARTH_RADIUS] },
-    };
-  }
+  // I really don't know when to change
+
+  // if (coordinates) {
+  //   query.location = {
+  //     $geoWithin: { $centerSphere: [coordinates, searchKilometersRadius / EARTH_RADIUS] },
+  //   };
+  // }
 
   const plants = await Plant.paginate(
     query,

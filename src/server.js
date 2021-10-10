@@ -26,5 +26,5 @@ configureIO(httpServer);
 
 const port = process.env.PORT;
 httpServer.listen({ port }, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.info(`Server is running at http://localhost:${port}`);
 });

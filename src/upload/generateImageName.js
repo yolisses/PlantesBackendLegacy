@@ -6,7 +6,7 @@ export function generateImageName(type) {
     png: 'png',
     jpg: 'jpg',
     jpeg: 'jpg',
-    webp:'webp',
+    webp: 'webp',
   };
   if (!supportedTypes[type]) {
     throw new VisibleError(400, `Unsupported image file type: ${type}`);

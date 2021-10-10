@@ -19,6 +19,7 @@ import { updateProfile } from './user/updateProfile.js';
 import { updateUserLocationByIp } from './geolocation/updateUserLocationByIp.js';
 import { updateUserLocationByCoordinates } from './geolocation/updateUserLocationByCoordinates.js';
 import { devToken } from './dev/generateToken.js';
+import { editPlantImages } from './plant/editPlantImages.js';
 
 export const routes = express.Router();
 
@@ -29,7 +30,8 @@ routes.post('/plants/:page', getPlants);
 routes.delete('/plant/:id', removePlant);
 // routes.get('/search/:text?', searchPlant);
 routes.post('/plant', authMiddleware, createPlant);
-routes.patch('/plant/:id', authMiddleware, editPlant);
+routes.patch('/plant-info/:id', authMiddleware, editPlant);
+routes.patch('/plant-images/:id', authMiddleware, editPlantImages);
 routes.post('/confirm-plant-sending', authMiddleware, confirmPlantSending);
 routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);
 

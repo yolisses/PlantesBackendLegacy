@@ -40,7 +40,7 @@ export async function getPlants(req, res) {
 
   const plants = await Plant.paginate(
     query,
-    { page, limit: 30 },
+    { page, limit: 30, sort: { createdAt: -1 } },
   );
   return res.send(plants);
 }

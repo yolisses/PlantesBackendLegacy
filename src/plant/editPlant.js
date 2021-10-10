@@ -1,4 +1,4 @@
-import { Plant, User } from '../db/entities.js';
+import { Plant } from '../db/entities.js';
 import { toID } from '../utils/toID.js';
 
 export async function editPlant(req, res) {
@@ -40,7 +40,10 @@ export async function editPlant(req, res) {
     updateObj.tags = tags;
   }
 
-  const newPlant = await Plant.findByIdAndUpdate(toID(id), updateObj, { new: true }).exec();
+  const newPlant = await Plant.findOneAndUpdate(
+    { _id: toID(id), userId: toID(userId) },
+    updateObj, { new: true },
+  ).exec();
 
   if (!newPlant) {
     return res.status(404).send({ error: 'Plant not found' });

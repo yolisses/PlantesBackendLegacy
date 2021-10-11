@@ -1,15 +1,5 @@
 import { v4 } from 'uuid';
-import { VisibleError } from '../errors/VisibleError.js';
 
-export function generateImageName(type) {
-  const supportedTypes = {
-    png: 'png',
-    jpg: 'jpg',
-    jpeg: 'jpg',
-    webp: 'webp',
-  };
-  if (!supportedTypes[type]) {
-    throw new VisibleError(400, `Unsupported image file type: ${type}`);
-  }
-  return `${v4()}.${supportedTypes[type]}`;
+export function generateImageName() {
+  return `${v4()}.webp`;
 }

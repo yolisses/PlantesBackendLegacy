@@ -12,7 +12,7 @@ import { confirmPlantSending } from './plant/confirmPlantSending.js';
 import { authenticateWithGoogle } from './auth/authenticateWithGoogle.js';
 
 import { getUser } from './user/getUser.js';
-import { editPlant } from './plant/editPlant.js';
+import { editPlantInfo } from './plant/editPlantInfo.js';
 import { removePlant } from './plant/removePlant.js';
 import { getUserPlants } from './user/getUserPlants.js';
 import { updateProfile } from './user/updateProfile.js';
@@ -30,7 +30,7 @@ routes.post('/plants/:page', getPlants);
 routes.delete('/plant/:id', removePlant);
 // routes.get('/search/:text?', searchPlant);
 routes.post('/plant', authMiddleware, createPlant);
-routes.patch('/plant-info/:id', authMiddleware, editPlant);
+routes.patch('/plant-info/:id', authMiddleware, editPlantInfo);
 routes.patch('/plant-images/:id', authMiddleware, editPlantImages);
 routes.post('/confirm-plant-sending', authMiddleware, confirmPlantSending);
 routes.post('/plant-image-upload-link', authMiddleware, getPlantImageUploadLink);

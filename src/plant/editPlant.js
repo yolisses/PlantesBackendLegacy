@@ -1,7 +1,7 @@
 import { Plant } from '../db/entities.js';
 import { toID } from '../utils/toID.js';
 
-export async function editPlant(req, res) {
+export async function editPlantInfo(req, res) {
   const { id } = req.params;
   const { userId } = req;
   const {
